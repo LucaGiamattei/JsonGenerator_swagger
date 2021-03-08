@@ -31,7 +31,8 @@ public class JsonGenerator {
 		    	StringBuffer respJson = getJson(i);
 		    	if(respJson != null) {
 		    		writeJson(respJson, i);
-		    	}else {System.out.println("[ERRORE] Non è possibile estrarre il json sulla porta "+ ports.get(i));}
+		    		System.out.println("[SUCCESS] Json \"swagger-"+ ports.get(i)+"\" generated..");
+		    	}else {System.out.println("[ERROR] Json response null on port "+ ports.get(i));}
 		    }		
 		}
 	}
@@ -46,7 +47,7 @@ public class JsonGenerator {
 	        }
 	        myReader.close();
 	      } catch (Exception e) {
-	    	  System.out.println("[ERRORE] Non è possibile leggere il file indicato.");
+	    	  System.out.println("[ERROR] Impossible to read ports file..");
 
 	      }
 	}
@@ -61,13 +62,13 @@ public class JsonGenerator {
 		      myWriter.close();
 		      
 	      } catch (Exception e) {
-	        System.out.println("[ERRORE] Errore in scrittura, porta "+ ports.get(index));
+	        System.out.println("[ERROR] File writing error, port "+ ports.get(index));
 	        
 	      }
 	}
 	
 	private StringBuffer getJson(int index) {
-		String url = "http://"+host+":"+ports.get(index)+"/v2/api-docs.json";
+		String url = "http://"+host+":"+ports.get(index)+"/v2/api-docs";
 		int time=5000;
 		
 		
@@ -102,7 +103,7 @@ public class JsonGenerator {
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-	        System.out.println("[ERRORE] Problema in connessione, porta "+ ports.get(index));
+	        System.out.println("[ERROR] Connection problem, port "+ ports.get(index));
 		} finally {
 			if (con != null) {
 				con.disconnect();
